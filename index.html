@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>kinslot - 工具箱</title>
+<style>
+/* ====== Carbon Design System — Dark + Light Theme ====== */
+
+:root,
+[data-theme="dark"] {
+  --cds-background:       #161616;
+  --cds-layer-01:         #262626;
+  --cds-layer-02:         #393939;
+  --cds-layer-hover:      #353535;
+  --cds-layer-active:     #4c4c4c;
+  --cds-field:            #f4f4f4;
+
+  --cds-text-primary:     #f4f4f4;
+  --cds-text-secondary:   #c6c6c6;
+  --cds-text-placeholder: #6f6f6f;
+  --cds-text-on-color:    #ffffff;
+
+  --cds-border-subtle:    #393939;
+  --cds-border-strong:    #8d8d8d;
+
+  --cds-interactive:         #78a9ff;
+  --cds-interactive-hover:   #a6c8ff;
+  --cds-interactive-active:  #4589ff;
+  --cds-focus:               #0f62fe;
+  --cds-focus-inset:         #ffffff;
+
+  --cds-button-primary:         #0f62fe;
+  --cds-button-primary-hover:   #0353e9;
+  --cds-button-primary-active:  #002d9c;
+  --cds-button-secondary:       #393939;
+  --cds-button-secondary-hover: #4c4c4c;
+
+  --cds-support-error:    #da1e28;
+  --cds-support-success:  #24a148;
+
+  --cds-link-primary:       #78a9ff;
+  --cds-link-primary-hover: #a6c8ff;
+
+  --cds-tag-bg:        rgba(120, 169, 255, 0.1);
+  --cds-badge-bg:      rgba(120, 169, 255, 0.1);
+  --cds-divider:       #393939;
+  --cds-icon-default:  #c6c6c6;
+  --cds-toast-bg:      #393939;
+  --cds-scrollbar:     #393939;
+}
+
+[data-theme="light"] {
+  --cds-background:       #ffffff;
+  --cds-layer-01:         #f4f4f4;
+  --cds-layer-02:         #e0e0e0;
+  --cds-layer-hover:      #e8e8e8;
+  --cds-layer-active:     #d0d0d0;
+  --cds-field:            #f4f4f4;
+
+  --cds-text-primary:     #161616;
+  --cds-text-secondary:   #525252;
+  --cds-text-placeholder: #6f6f6f;
+  --cds-text-on-color:    #ffffff;
+
+  --cds-border-subtle:    #c6c6c6;
+  --cds-border-strong:    #8d8d8d;
+
+  --cds-interactive:         #0f62fe;
+  --cds-interactive-hover:   #0043ce;
+  --cds-interactive-active:  #002d9c;
+  --cds-focus:               #0f62fe;
+  --cds-focus-inset:         #ffffff;
+
+  --cds-button-primary:         #0f62fe;
+  --cds-button-primary-hover:   #0353e9;
+  --cds-button-primary-active:  #002d9c;
+  --cds-button-secondary:       #393939;
+  --cds-button-secondary-hover: #4c4c4c;
+
+  --cds-support-error:    #da1e28;
+  --cds-support-success:  #24a148;
+
+  --cds-link-primary:       #0f62fe;
+  --cds-link-primary-hover: #0043ce;
+
+  --cds-tag-bg:        rgba(15, 98, 254, 0.1);
+  --cds-badge-bg:      rgba(15, 98, 254, 0.1);
+  --cds-divider:       #e0e0e0;
+  --cds-icon-default:  #525252;
+  --cds-toast-bg:      #f4f4f4;
+  --cds-scrollbar:     #c6c6c6;
+}
+
+/* ---------- Reset & Base ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { font-size: 100%; }
+
+body {
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-weight: 400;
+  background: var(--cds-background);
+  color: var(--cds-text-primary);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  user-select: none;
+  line-height: 1.29;
+  letter-spacing: 0.16px;
+  font-size: 14px;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ====== Nav Bar ====== */
+.nav-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 48px;
+  background: var(--cds-background);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--cds-border-subtle);
+  z-index: 100;
+  gap: 16px;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.nav-logo {
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cds-text-primary);
+  letter-spacing: 0.16px;
+  white-space: nowrap;
+}
+
+.nav-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--cds-divider);
+}
+
+.nav-subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--cds-text-secondary);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--cds-text-secondary);
+  border-radius: 0;
+  transition: background 0.15s, color 0.15s;
+  padding: 0;
+}
+
+.theme-toggle:hover {
+  background: var(--cds-layer-hover);
+  color: var(--cds-text-primary);
+}
+
+.theme-toggle:focus {
+  outline: 2px solid var(--cds-focus);
+  outline-offset: -2px;
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Help Button */
+.help-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--cds-text-secondary);
+  border-radius: 0;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.help-btn:hover {
+  background: var(--cds-layer-hover);
+  color: var(--cds-text-primary);
+}
+
+.help-btn:focus {
+  outline: 2px solid var(--cds-focus);
+  outline-offset: -2px;
+}
+
+.help-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.theme-toggle .icon-sun  { display: none; }
+.theme-toggle .icon-moon { display: block; }
+
+[data-theme="light"] .theme-toggle .icon-sun  { display: block; }
+[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+/* ====== Layout ====== */
+.app-shell {
+  display: flex;
+  flex: 1;
+  margin-top: 48px;
+  height: calc(100vh - 48px);
+}
+
+/* ====== Sidebar ====== */
+.sidebar {
+  width: 256px;
+  min-width: 256px;
+  background: var(--cds-layer-01);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--cds-border-subtle);
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.sidebar-search {
+  padding: 16px;
+  border-bottom: 1px solid var(--cds-border-subtle);
+}
+
+.sidebar-search input {
+  width: 100%;
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: var(--cds-field);
+  color: var(--cds-background);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.16px;
+  outline: none;
+  transition: border-color 0.15s, background 0.3s;
+  border-radius: 0;
+}
+
+.sidebar-search input:focus {
+  border-bottom: 2px solid var(--cds-focus);
+}
+
+.sidebar-search input::placeholder {
+  color: var(--cds-text-placeholder);
+}
+
+.category-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px 0;
+}
+
+.category-list::-webkit-scrollbar { width: 4px; }
+
+.category-list::-webkit-scrollbar-thumb {
+  background: var(--cds-scrollbar);
+  border-radius: 0;
+}
+
+/* ----- 目录项基类 ----- */
+.tree-item {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  color: var(--cds-text-secondary);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.16px;
+  padding-right: 16px;
+}
+
+.tree-item:hover {
+  background: var(--cds-layer-hover);
+  color: var(--cds-text-primary);
+}
+
+.tree-item.active {
+  background: var(--cds-layer-02);
+  color: var(--cds-text-primary);
+  font-weight: 600;
+  border-left: 3px solid var(--cds-interactive);
+}
+
+/* ---- 层级缩进 ---- */
+.tree-level-0 { padding-left: 16px; }
+.tree-level-0.active { padding-left: 13px; }
+
+.tree-level-1 { padding-left: 32px; }
+.tree-level-1.active { padding-left: 29px; }
+
+.tree-level-2 { padding-left: 48px; }
+.tree-level-2.active { padding-left: 45px; }
+
+.tree-level-3 { padding-left: 64px; }
+.tree-level-3.active { padding-left: 61px; }
+
+/* ---- 展开/收起图标 ---- */
+.tree-toggle {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 4px;
+  color: var(--cds-text-secondary);
+  transition: transform 0.15s;
+}
+
+.tree-toggle.expanded {
+  transform: rotate(90deg);
+}
+
+.tree-toggle.no-children {
+  visibility: hidden;
+}
+
+.tree-item-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  min-width: 0;
+}
+
+.tree-item-name {
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tree-item-count {
+  font-size: 12px;
+  color: var(--cds-text-secondary);
+  font-weight: 400;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.tree-item.active .tree-item-count {
+  color: var(--cds-interactive);
+}
+
+/* ====== Main Area ====== */
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--cds-background);
+  transition: background 0.3s;
+}
+
+.main-header {
+  padding: 24px 32px 16px;
+  border-bottom: 1px solid var(--cds-border-subtle);
+  transition: border-color 0.3s;
+}
+
+.main-header h2 {
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--cds-text-primary);
+  letter-spacing: 0;
+}
+
+.main-header .count-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 24px;
+  background: var(--cds-badge-bg);
+  color: var(--cds-interactive);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.32px;
+}
+
+.main-header .breadcrumb {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.32px;
+  color: var(--cds-text-secondary);
+  margin-bottom: 4px;
+}
+
+.main-header .breadcrumb span {
+  color: var(--cds-interactive);
+}
+
+/* ====== Program Grid ====== */
+.program-grid {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1px;
+  align-content: start;
+}
+
+.program-grid::-webkit-scrollbar { width: 6px; }
+
+.program-grid::-webkit-scrollbar-thumb {
+  background: var(--cds-scrollbar);
+  border-radius: 0;
+}
+
+.program-card {
+  background: var(--cds-layer-01);
+  border-radius: 0;
+  padding: 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: none;
+}
+
+.program-card:hover  { background: var(--cds-layer-hover); }
+.program-card:active { background: var(--cds-layer-02); }
+
+.program-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: var(--cds-interactive);
+}
+
+.program-icon img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.program-icon .default-icon {
+  color: var(--cds-icon-default);
+}
+
+.program-icon .default-icon svg {
+  width: 48px;
+  height: 48px;
+}
+
+.program-name {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.29;
+  letter-spacing: 0.16px;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 4px;
+  color: var(--cds-text-primary);
+}
+
+.program-ext {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.32px;
+  color: var(--cds-interactive);
+  padding: 2px 8px;
+  border-radius: 24px;
+  background: var(--cds-tag-bg);
+}
+
+/* ====== Toast ====== */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--cds-toast-bg);
+  color: var(--cds-text-primary);
+  padding: 12px 24px;
+  border-radius: 0;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.16px;
+  z-index: 999;
+  opacity: 0;
+  border-left: 3px solid var(--cds-support-success);
+  animation: toastIn 0.2s ease forwards, toastOut 0.2s ease 1.8s forwards;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes toastOut {
+  from { opacity: 1; transform: translateX(-50%) translateY(0); }
+  to   { opacity: 0; transform: translateX(-50%) translateY(8px); }
+}
+
+/* ====== Download Progress ====== */
+.progress-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.progress-modal {
+  background: var(--cds-layer-01);
+  border: 1px solid var(--cds-border-subtle);
+  padding: 24px 32px;
+  min-width: 360px;
+  max-width: 480px;
+  border-radius: 0;
+}
+.progress-modal .progress-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--cds-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.progress-modal .progress-file {
+  font-size: 12px;
+  color: var(--cds-text-secondary);
+  margin-bottom: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.progress-modal .progress-bar-track {
+  width: 100%;
+  height: 8px;
+  background: var(--cds-layer-02);
+  border-radius: 0;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.progress-modal .progress-bar-fill {
+  height: 100%;
+  background: var(--cds-interactive);
+  width: 0%;
+  transition: width 0.15s linear;
+}
+.progress-modal .progress-stats {
+  font-size: 12px;
+  color: var(--cds-text-secondary);
+  display: flex;
+  justify-content: space-between;
+}
+.progress-modal .progress-cancel {
+  margin-top: 16px;
+  text-align: right;
+}
+.progress-modal .progress-cancel button {
+  border: 1px solid var(--cds-border-subtle);
+  background: transparent;
+  color: var(--cds-text-primary);
+  font-family: inherit;
+  font-size: 14px;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.progress-modal .progress-cancel button:hover {
+  background: var(--cds-layer-hover);
+}
+
+/* ====== Empty State ====== */
+.empty-state {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 16px;
+  color: var(--cds-text-secondary);
+}
+
+.empty-state .empty-icon {
+  margin-bottom: 16px;
+  color: var(--cds-text-secondary);
+}
+
+.empty-state .empty-icon svg {
+  width: 64px;
+  height: 64px;
+}
+
+.empty-state .empty-text {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.16px;
+  line-height: 1.29;
+  color: var(--cds-text-secondary);
+}
+
+/* ====== Footer ====== */
+.footer-text {
+  padding: 8px 32px;
+  font-size: 12px;
+  letter-spacing: 0.32px;
+  color: var(--cds-text-secondary);
+  border-top: 1px solid var(--cds-border-subtle);
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 672px) {
+  .sidebar { width: 200px; min-width: 200px; }
+  .program-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    padding: 16px;
+  }
+  .main-header { padding: 16px 16px 12px; }
+  .tree-level-1 { padding-left: 24px; } .tree-level-1.active { padding-left: 21px; }
+  .tree-level-2 { padding-left: 36px; } .tree-level-2.active { padding-left: 33px; }
+  .tree-level-3 { padding-left: 48px; } .tree-level-3.active { padding-left: 45px; }
+}
+
+@media (max-width: 320px) {
+  .sidebar { width: 160px; min-width: 160px; }
+  .program-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ====== Top Nav Bar ====== -->
+<nav class="nav-bar">
+  <div class="nav-left">
+    <span class="nav-logo">kinslot</span>
+    <span class="nav-divider"></span>
+    <span class="nav-subtitle">工具箱</span>
+  </div>
+  <a class="help-btn" href="README.html" title="使用说明" aria-label="查看使用说明">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+      <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
+    </svg>
+  </a>
+  <button class="theme-toggle" id="themeToggle" title="切换深色/浅色模式" aria-label="切换颜色主题">
+    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/>
+    </svg>
+    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .708-.707l1.414 1.414a.5.5 0 0 1 0 .708"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- ====== App Shell ====== -->
+<div class="app-shell">
+
+  <aside class="sidebar">
+    <div class="sidebar-search">
+      <input type="text" id="searchInput" placeholder="搜索程序..." />
+    </div>
+    <nav class="category-list" id="categoryList"></nav>
+  </aside>
+
+  <main class="main-area">
+    <div class="main-header">
+      <div class="breadcrumb" id="breadcrumb"></div>
+      <h2 id="categoryTitle">全部程序<span class="count-badge" id="countBadge">0</span></h2>
+    </div>
+    <div class="program-grid" id="programGrid"></div>
+    <div class="footer-text">&copy; kinslot 2026 @Zhiyu_Chen</div>
+  </main>
+
+</div>
+
+<script src="data.js"></script>
+
+<script>
+(function() {
+  const APP_DATA = window.APP_DATA || [];
+
+  // ====== 主题切换 ======
+  const html = document.documentElement;
+  const STORAGE_KEY = "theme-preference";
+  const DARK  = "dark";
+  const LIGHT = "light";
+
+  function getSystemTheme() {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+  }
+
+  function applyTheme(theme) {
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem(STORAGE_KEY, theme);
+  }
+
+  function initTheme() {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === DARK || stored === LIGHT) {
+      applyTheme(stored);
+    } else {
+      applyTheme(getSystemTheme());
+    }
+  }
+
+  document.getElementById("themeToggle").addEventListener("click", function() {
+    const current = html.getAttribute("data-theme");
+    applyTheme(current === DARK ? LIGHT : DARK);
+  });
+
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function(e) {
+    if (!localStorage.getItem(STORAGE_KEY)) {
+      applyTheme(e.matches ? DARK : LIGHT);
+    }
+  });
+
+  initTheme();
+
+  // ====== SVG 图标 ======
+  const defaultIconSVG = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-terminal-fill" viewBox="0 0 16 16"><path d="M0 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm9.5 5.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1m-6.354-.354a.5.5 0 1 0 .708.708l2-2a.5.5 0 0 0 0-.708l-2-2a.5.5 0 1 0-.708.708L4.793 6.5z"/></svg>';
+
+  const folderIconSVG = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder" viewBox="0 0 16 16"><path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396z"/></svg>';
+
+  const chevronRightSVG = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/></svg>';
+
+  // ====== DOM 引用 ======
+  const categoryList  = document.getElementById("categoryList");
+  const categoryTitle = document.getElementById("categoryTitle");
+  const countBadge    = document.getElementById("countBadge");
+  const breadcrumb    = document.getElementById("breadcrumb");
+  const programGrid   = document.getElementById("programGrid");
+  const searchInput   = document.getElementById("searchInput");
+
+  let activeNode   = null;      // 当前选中节点
+  let searchQuery  = "";
+  let expandedNodes = new Set(); // 记录展开的节点路径
+
+  // ====== 工具函数：递归统计/收集 ======
+  function countAll(node) {
+    let total = (node.programs || []).length;
+    (node.children || []).forEach(c => { total += countAll(c); });
+    return total;
+  }
+
+  function flattenPrograms(node) {
+    let result = [...(node.programs || [])];
+    (node.children || []).forEach(c => result.push(...flattenPrograms(c)));
+    return result;
+  }
+
+  function collectAllPrograms(nodes) {
+    let result = [];
+    nodes.forEach(n => result.push(...flattenPrograms(n)));
+    return result;
+  }
+
+  // ====== Toast ======
+  function showToast(msg) {
+    const existing = document.querySelector(".toast");
+    if (existing) existing.remove();
+    const t = document.createElement("div");
+    t.className = "toast";
+    t.textContent = msg;
+    document.body.appendChild(t);
+    t.addEventListener("animationend", function(e) {
+      if (e.animationName === "toastOut") t.remove();
+    });
+  }
+
+  // ====== 格式化文件大小 ======
+  function formatSize(bytes) {
+    if (bytes === 0) return "0 B";
+    const units = ["B", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(1024));
+    const val = (bytes / Math.pow(1024, i)).toFixed(i === 0 ? 0 : 1);
+    return val + " " + units[i];
+  }
+
+  // ====== 下载进度弹窗 ======
+  let currentProgressOverlay = null;
+  let currentXHR = null;
+
+  function showProgressOverlay(prog) {
+    if (currentProgressOverlay) currentProgressOverlay.remove();
+
+    const overlay = document.createElement("div");
+    overlay.className = "progress-overlay";
+    overlay.innerHTML = `
+      <div class="progress-modal">
+        <div class="progress-title">${escapeHtml(prog.name)}</div>
+        <div class="progress-file">${escapeHtml(prog.fileName)}</div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+        </div>
+        <div class="progress-stats">
+          <span id="progressPercent">0%</span>
+          <span id="progressSize">0 B / --</span>
+        </div>
+        <div class="progress-cancel">
+          <button id="progressCancelBtn">取消</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    document.getElementById("progressCancelBtn").addEventListener("click", function () {
+      if (currentXHR) {
+        currentXHR.abort();
+      }
+      overlay.remove();
+      currentProgressOverlay = null;
+      currentXHR = null;
+      showToast("下载已取消");
+    });
+
+    currentProgressOverlay = overlay;
+    return overlay;
+  }
+
+  function updateProgress(overlay, loaded, total) {
+    const fill = overlay.querySelector("#progressFill");
+    const percentEl = overlay.querySelector("#progressPercent");
+    const sizeEl = overlay.querySelector("#progressSize");
+
+    if (total > 0) {
+      const pct = Math.round((loaded / total) * 100);
+      fill.style.width = pct + "%";
+      percentEl.textContent = pct + "%";
+      sizeEl.textContent = formatSize(loaded) + " / " + formatSize(total);
+    } else {
+      // 无法获取总大小（chunked），只显示已下载量
+      fill.style.width = "50%";
+      percentEl.textContent = "下载中...";
+      sizeEl.textContent = formatSize(loaded) + " / ?";
+    }
+  }
+
+  // ====== 下载 (XHR + progress, application/octet-stream) ======
+  function downloadProgram(prog) {
+    const overlay = showProgressOverlay(prog);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", prog.path, true);
+    xhr.responseType = "blob";
+
+    xhr.onprogress = function (e) {
+      if (e.lengthComputable) {
+        updateProgress(overlay, e.loaded, e.total);
+      } else if (e.loaded) {
+        updateProgress(overlay, e.loaded, 0);
+      }
+    };
+
+    xhr.onload = function () {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        const blob = xhr.response;
+        const forceBlob = new Blob([blob], { type: "application/octet-stream" });
+        const url = URL.createObjectURL(forceBlob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = prog.fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+
+        overlay.remove();
+        currentProgressOverlay = null;
+        currentXHR = null;
+        showToast("下载完成: " + prog.name);
+      } else {
+        overlay.remove();
+        currentProgressOverlay = null;
+        currentXHR = null;
+        showToast("下载失败 (HTTP " + xhr.status + ")，请重试");
+      }
+    };
+
+    xhr.onerror = function () {
+      overlay.remove();
+      currentProgressOverlay = null;
+      currentXHR = null;
+      showToast("下载失败，请检查网络连接");
+    };
+
+    xhr.onabort = function () {
+      // UI 已在取消按钮中处理
+    };
+
+    currentXHR = xhr;
+    xhr.send();
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // ====== 面包屑导航 ======
+  function buildAncestorPath(rootNodes, targetNode) {
+    // 从 rootNodes 中递归查找 targetNode 并返回路径数组
+    function find(nodes, target) {
+      for (const n of nodes) {
+        if (n === target) return [n.name];
+        if (n.children && n.children.length) {
+          const sub = find(n.children, target);
+          if (sub) return [n.name, ...sub];
+        }
+      }
+      return null;
+    }
+    return find(rootNodes, targetNode);
+  }
+
+  function setBreadcrumb(pathArr) {
+    if (!pathArr || pathArr.length <= 1) {
+      breadcrumb.innerHTML = "";
+      return;
+    }
+    breadcrumb.innerHTML = pathArr.join(' <span style="color:var(--cds-text-secondary)">/</span> ');
+  }
+
+  // ====== 选中节点 & 右侧渲染 ======
+  function selectNode(node, pathArr) {
+    // 取消之前的 active
+    document.querySelectorAll(".tree-item").forEach(el => el.classList.remove("active"));
+    activeNode = node;
+
+    const programs = flattenPrograms(node);
+    const filtered = programs.filter(p => matchSearch(p.name));
+
+    renderPrograms(filtered);
+    countBadge.textContent = filtered.length;
+    categoryTitle.textContent = node.name;
+
+    setBreadcrumb(pathArr);
+  }
+
+  function selectAll() {
+    document.querySelectorAll(".tree-item").forEach(el => el.classList.remove("active"));
+    activeNode = null;
+
+    const allPrograms = collectAllPrograms(APP_DATA);
+    const filtered = allPrograms.filter(p => matchSearch(p.name));
+
+    renderPrograms(filtered);
+    countBadge.textContent = filtered.length;
+    categoryTitle.textContent = "全部程序";
+    breadcrumb.innerHTML = "";
+  }
+
+  // ====== 渲染程序 ======
+  function renderPrograms(programs) {
+    programGrid.innerHTML = "";
+
+    if (programs.length === 0) {
+      programGrid.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">${folderIconSVG}</div>
+          <div class="empty-text">
+            ${activeNode
+              ? `"${activeNode.name}" 分类下暂无${searchQuery ? "匹配的" : ""}程序`
+              : `暂无${searchQuery ? "匹配的" : ""}程序`}
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    programs.forEach(prog => {
+      const card = document.createElement("div");
+      card.className = "program-card";
+
+      const iconHtml = prog.icon
+        ? `<img src="data:image/png;base64,${prog.icon}" alt="icon" />`
+        : `<span class="default-icon">${defaultIconSVG}</span>`;
+
+      card.innerHTML = `
+        <div class="program-icon">${iconHtml}</div>
+        <div class="program-name">${prog.name}</div>
+        <div class="program-ext">${prog.ext}</div>
+      `;
+
+      card.addEventListener("click", () => downloadProgram(prog));
+      programGrid.appendChild(card);
+    });
+  }
+
+  // ====== 匹配搜索 ======
+  function matchSearch(name) {
+    if (!searchQuery) return true;
+    return name.toLowerCase().includes(searchQuery.toLowerCase());
+  }
+
+  // 递归检查节点子树是否匹配搜索
+  function nodeMatchesSearch(node) {
+    if (node.programs && node.programs.some(p => matchSearch(p.name))) return true;
+    if (node.children && node.children.some(c => nodeMatchesSearch(c))) return true;
+    return false;
+  }
+
+  // ====== 渲染侧栏树 ======
+  function renderTree() {
+    categoryList.innerHTML = "";
+
+    // "全部程序"
+    const allPrograms = collectAllPrograms(APP_DATA);
+    const allFiltered = allPrograms.filter(p => matchSearch(p.name));
+    const allItem = buildTreeItem({
+      name: "全部程序",
+      count: allFiltered.length,
+      level: 0,
+      hasChildren: APP_DATA.length > 0,
+      node: null,
+      isAll: true,
+      pathArr: null
+    });
+    categoryList.appendChild(allItem);
+
+    // 渲染根节点
+    APP_DATA.forEach((rootNode) => {
+      renderTreeNode(rootNode, 0, [], categoryList);
+    });
+
+    // 默认激活"全部"
+    const firstItem = categoryList.querySelector(".tree-item");
+    if (firstItem) firstItem.click();
+  }
+
+  function renderTreeNode(node, level, pathArr, container) {
+    // 只有在搜索状态下才过滤掉无匹配的分类，否则空分类也展示
+    if (searchQuery && !nodeMatchesSearch(node)) return;
+
+    const currentPath = [...pathArr, node.name];
+    const hasChildren = node.children && node.children.length > 0;
+    const isExpanded = expandedNodes.has(node.path);
+
+    const filteredCount = flattenPrograms(node).filter(p => matchSearch(p.name)).length;
+
+    const item = buildTreeItem({
+      name: node.name,
+      count: filteredCount,
+      level: level,
+      hasChildren: hasChildren,
+      isExpanded: isExpanded,
+      node: node,
+      isAll: false,
+      pathArr: currentPath
+    });
+    container.appendChild(item);
+
+    // children container
+    if (hasChildren) {
+      const childContainer = document.createElement("div");
+      childContainer.className = "tree-children";
+      childContainer.style.display = isExpanded ? "block" : "none";
+      childContainer.dataset.path = node.path;
+      container.appendChild(childContainer);
+
+      node.children.forEach(child => {
+        renderTreeNode(child, level + 1, currentPath, childContainer);
+      });
+    }
+  }
+
+  function buildTreeItem({ name, count, level, hasChildren, isExpanded, node, isAll, pathArr }) {
+    const item = document.createElement("div");
+    item.className = "tree-item tree-level-" + level;
+
+    // toggle button
+    const toggle = document.createElement("span");
+    toggle.className = "tree-toggle" + (hasChildren ? "" : " no-children");
+    if (isExpanded) toggle.classList.add("expanded");
+    toggle.innerHTML = chevronRightSVG;
+
+    // info
+    const info = document.createElement("div");
+    info.className = "tree-item-info";
+    info.innerHTML = `
+      <span class="tree-item-name">${name}</span>
+      <span class="tree-item-count">${count}</span>
+    `;
+
+    item.appendChild(toggle);
+    item.appendChild(info);
+
+    // Toggle 点击：展开/收起
+    if (hasChildren) {
+      toggle.addEventListener("click", function(e) {
+        e.stopPropagation();
+        if (expandedNodes.has(node.path)) {
+          expandedNodes.delete(node.path);
+        } else {
+          expandedNodes.add(node.path);
+        }
+        renderTree();
+        // 恢复选中状态
+        if (activeNode === node) {
+          const activeEl = categoryList.querySelector(`.tree-item[data-path="${node.path}"]`);
+          if (activeEl) activeEl.classList.add("active");
+        }
+      });
+    }
+
+    // 节点点击：选中
+    item.dataset.path = node ? node.path : "__all__";
+    item.addEventListener("click", function(e) {
+      e.stopPropagation();
+      if (isAll) {
+        selectAll();
+      } else {
+        selectNode(node, pathArr);
+      }
+      item.classList.add("active");
+    });
+
+    return item;
+  }
+
+  // ====== 搜索 ======
+  searchInput.addEventListener("input", function() {
+    searchQuery = this.value.trim();
+    renderTree();
+    // 重新触发当前选中
+    if (activeNode) {
+      const activeEl = categoryList.querySelector(`.tree-item[data-path="${activeNode.path}"]`);
+      if (activeEl) activeEl.click();
+      else selectAll();
+    } else {
+      selectAll();
+    }
+  });
+
+  // ====== 启动 ======
+  if (APP_DATA.length === 0) {
+    categoryTitle.textContent = "全部程序";
+    countBadge.textContent = "0";
+    breadcrumb.innerHTML = "";
+    programGrid.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">${folderIconSVG}</div>
+        <div class="empty-text">请将程序放入 Main 文件夹下的对应分类，然后运行 generate.py</div>
+      </div>
+    `;
+  } else {
+    renderTree();
+  }
+})();
+</script>
+
+</body>
+</html>

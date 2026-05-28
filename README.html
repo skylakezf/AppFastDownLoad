@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>使用说明 - 工具箱</title>
+<style>
+/* ====== Carbon Design Tokens ====== */
+[data-theme="dark"] {
+  --cds-background: #161616;
+  --cds-layer-01: #262626;
+  --cds-layer-02: #393939;
+  --cds-layer-hover: #353535;
+  --cds-text-primary: #f4f4f4;
+  --cds-text-secondary: #c6c6c6;
+  --cds-text-placeholder: #6f6f6f;
+  --cds-border-subtle: #393939;
+  --cds-border-strong: #8d8d8d;
+  --cds-interactive: #78a9ff;
+  --cds-interactive-hover: #a6c8ff;
+  --cds-focus: #0f62fe;
+  --cds-link-primary: #78a9ff;
+  --cds-link-primary-hover: #a6c8ff;
+  --cds-divider: #393939;
+  --cds-tag-bg: rgba(120, 169, 255, 0.1);
+  --cds-code-bg: #1a1a1a;
+  --cds-code-border: #333;
+  --cds-blockquote-bg: rgba(120, 169, 255, 0.05);
+  --cds-table-border: #393939;
+  --cds-table-header: #262626;
+  --cds-table-stripe: rgba(255,255,255,0.02);
+}
+[data-theme="light"] {
+  --cds-background: #ffffff;
+  --cds-layer-01: #f4f4f4;
+  --cds-layer-02: #e0e0e0;
+  --cds-layer-hover: #e8e8e8;
+  --cds-text-primary: #161616;
+  --cds-text-secondary: #525252;
+  --cds-text-placeholder: #6f6f6f;
+  --cds-border-subtle: #c6c6c6;
+  --cds-border-strong: #8d8d8d;
+  --cds-interactive: #0f62fe;
+  --cds-interactive-hover: #0043ce;
+  --cds-focus: #0f62fe;
+  --cds-link-primary: #0f62fe;
+  --cds-link-primary-hover: #0043ce;
+  --cds-divider: #e0e0e0;
+  --cds-tag-bg: rgba(15, 98, 254, 0.1);
+  --cds-code-bg: #f4f4f4;
+  --cds-code-border: #e0e0e0;
+  --cds-blockquote-bg: rgba(15, 98, 254, 0.05);
+  --cds-table-border: #e0e0e0;
+  --cds-table-header: #f4f4f4;
+  --cds-table-stripe: rgba(0,0,0,0.02);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { font-size: 100%; }
+
+body {
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, "Microsoft YaHei", "PingFang SC", sans-serif;
+  background: var(--cds-background);
+  color: var(--cds-text-primary);
+  line-height: 1.6;
+  letter-spacing: 0.16px;
+  font-size: 14px;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Nav */
+.nav-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 48px;
+  background: var(--cds-background);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--cds-border-subtle);
+  z-index: 100;
+  gap: 16px;
+  transition: background 0.3s, border-color 0.3s;
+}
+.nav-bar .nav-left { display: flex; align-items: center; gap: 16px; flex: 1; }
+.nav-logo { font-weight: 600; font-size: 14px; color: var(--cds-text-primary); }
+.nav-divider { width: 1px; height: 24px; background: var(--cds-divider); }
+.nav-subtitle { color: var(--cds-text-secondary); }
+.nav-back {
+  display: flex; align-items: center; gap: 6px;
+  background: transparent; border: none; color: var(--cds-interactive);
+  cursor: pointer; font-size: 14px; font-family: inherit;
+  padding: 6px 12px; transition: background 0.15s;
+}
+.nav-back:hover { background: var(--cds-layer-hover); }
+.nav-back svg { width: 16px; height: 16px; }
+
+.theme-toggle {
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border: none; background: transparent;
+  cursor: pointer; color: var(--cds-text-secondary);
+  transition: background 0.15s, color 0.15s;
+}
+.theme-toggle:hover { background: var(--cds-layer-hover); color: var(--cds-text-primary); }
+.theme-toggle:focus { outline: 2px solid var(--cds-focus); outline-offset: -2px; }
+.theme-toggle svg { width: 20px; height: 20px; }
+.theme-toggle .icon-sun  { display: none; }
+.theme-toggle .icon-moon { display: block; }
+[data-theme="light"] .theme-toggle .icon-sun  { display: block; }
+[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+/* Content */
+.content {
+  max-width: 800px;
+  margin: 48px auto 0;
+  padding: 48px 32px 80px;
+}
+.content h1 {
+  font-size: 28px; font-weight: 300; letter-spacing: 0;
+  color: var(--cds-text-primary); margin-bottom: 8px;
+}
+.content h1 + p {
+  color: var(--cds-text-secondary); font-size: 16px; margin-bottom: 32px;
+}
+.content hr {
+  border: none; border-top: 1px solid var(--cds-border-subtle);
+  margin: 40px 0;
+}
+.content h2 {
+  font-size: 20px; font-weight: 400; letter-spacing: 0;
+  color: var(--cds-text-primary); margin: 40px 0 16px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--cds-border-subtle);
+}
+.content h3 {
+  font-size: 16px; font-weight: 600; letter-spacing: 0;
+  color: var(--cds-text-primary); margin: 24px 0 12px;
+}
+.content p { margin: 0 0 16px; color: var(--cds-text-secondary); line-height: 1.7; }
+
+.content a {
+  color: var(--cds-link-primary); text-decoration: none;
+  border-bottom: 1px solid var(--cds-link-primary);
+}
+.content a:hover { color: var(--cds-link-primary-hover); }
+
+.content ul, .content ol { margin: 0 0 16px; padding-left: 24px; color: var(--cds-text-secondary); }
+.content li { margin-bottom: 6px; line-height: 1.7; }
+
+.content strong { color: var(--cds-text-primary); font-weight: 600; }
+
+/* Code blocks */
+.content code {
+  background: var(--cds-code-bg);
+  padding: 2px 6px; font-size: 13px; letter-spacing: 0;
+  font-family: "IBM Plex Mono", "Cascadia Code", "Fira Code", Consolas, monospace;
+  border: 1px solid var(--cds-code-border);
+}
+.content pre {
+  background: var(--cds-code-bg);
+  border: 1px solid var(--cds-code-border);
+  padding: 16px 20px; overflow-x: auto; margin: 0 0 16px;
+  line-height: 1.6;
+}
+.content pre code {
+  background: transparent; padding: 0; border: none; font-size: 13px;
+  white-space: pre;
+}
+
+/* Blockquote */
+.content blockquote {
+  background: var(--cds-blockquote-bg);
+  border-left: 3px solid var(--cds-interactive);
+  margin: 0 0 16px; padding: 12px 16px;
+  color: var(--cds-text-secondary); font-size: 13px; line-height: 1.7;
+}
+.content blockquote p { margin: 0; }
+
+/* Tables */
+.content table {
+  width: 100%; border-collapse: collapse; margin: 0 0 16px;
+  font-size: 14px; letter-spacing: 0.16px;
+}
+.content th, .content td {
+  text-align: left; padding: 10px 16px;
+  border-bottom: 1px solid var(--cds-table-border);
+}
+.content th {
+  background: var(--cds-table-header);
+  color: var(--cds-text-primary); font-weight: 600; font-size: 12px;
+  letter-spacing: 0.32px; text-transform: uppercase;
+}
+.content td { color: var(--cds-text-secondary); }
+.content tr:nth-child(even) td { background: var(--cds-table-stripe); }
+
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <div class="nav-left">
+    <span class="nav-logo">kinslot</span>
+    <span class="nav-divider"></span>
+    <span class="nav-subtitle">使用说明</span>
+  </div>
+  <a class="nav-back" href="index.html">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+    </svg>
+    返回工具箱
+  </a>
+  <button class="theme-toggle" id="themeToggle" title="切换深色/浅色模式" aria-label="切换颜色主题">
+    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/>
+    </svg>
+    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .708-.707l1.414 1.414a.5.5 0 0 1 0 .708"/>
+    </svg>
+  </button>
+</nav>
+
+<div class="content">
+
+<h1>kinslot 工具箱</h1>
+
+
+
+<h2>如何使用</h2>
+
+<h3>浏览程序</h3>
+<p>打开页面后，左侧会显示程序分类目录，点击分类即可展开查看该分类下的所有程序。右侧显示程序卡片，每张卡片包含程序名称、图标和文件名。</p>
+
+<h3>搜索程序</h3>
+<p>在页面顶部的搜索框中输入关键词，即可快速过滤出需要的程序或分类。</p>
+
+<h3>下载程序</h3>
+<p>点击程序卡片，页面会弹出下载进度窗口，显示实时下载进度。下载完成后，浏览器会自动弹出保存对话框。</p>
+
+<hr>
+
+<h2>更新与删除程序</h2>
+
+<h3>程序更新与删除</h3>
+<p>访问<code>\\QITV1534\共享文件\安装目录\X_FastDownload</code>在此文件夹下写入或删除文件等待35S等待服务器程序自动同步并更新后端数据文件，刷新后即可看到最新的程序列表</p>
+<strong>服务器不支持文件夹下载，若工具是以文件夹形式保存的，需要手动压缩为Zip包后再上传</strong>
+<hr>
+
+
+<hr>
+
+<h2>目录结构</h2>
+<pre><code>App快速下载/
+├── X_FastDownload                # 存放程序的文件夹（核心） 共享路径\\QITV1534\APPFastDownload\Main
+│   ├── CPU/             # 一级分类示例
+│   │   ├── 子分类A/     # 二级分类（可选）
+│   │   │   └── 深层/    # 三级分类（最深层级）
+│   │   │       └── tool.exe
+│   │   └── cpuz.exe
+│   ├── GPU/
+│   ├── 内存/
+│   └── 磁盘工具/
+</code></pre>
+<blockquote>
+<p><strong>注意：</strong> 子目录最多嵌套 3 层（Main 下第 1 层 → 第 2 层 → 第 3 层），超出层级的目录将被忽略。</p>
+</blockquote>
+<hr>
+
+
+<h2>支持的文件格式</h2>
+<p>工具箱支持以下格式的程序文件：</p>
+<table>
+  <tr><th>格式</th><th>说明</th></tr>
+  <tr><td><code>.exe</code></td><td>可执行程序</td></tr>
+  <tr><td><code>.msi</code></td><td>Windows 安装包</td></tr>
+  <tr><td><code>.zip</code></td><td>压缩包</td></tr>
+  <tr><td><code>.rar</code></td><td>压缩包</td></tr>
+  <tr><td><code>.7z</code></td><td>压缩包</td></tr>
+  <tr><td><code>.iso</code></td><td>光盘镜像</td></tr>
+  <tr><td><code>.bat</code></td><td>批处理脚本</td></tr>
+  <tr><td><code>.cmd</code></td><td>命令脚本</td></tr>
+  <tr><td><code>.ps1</code></td><td>PowerShell 脚本</td></tr>
+  <tr><td><code>.reg</code></td><td>注册表文件</td></tr>
+  <tr><td><code>.txt</code></td><td>文本文件</td></tr>
+</table>
+
+<hr>
+
+<h2>功能说明</h2>
+<table>
+  <tr><th>功能</th><th>说明</th></tr>
+  <tr><td><strong>分类导航</strong></td><td>左侧树形目录，支持展开/收起，方便按类别浏览程序</td></tr>
+  <tr><td><strong>搜索过滤</strong></td><td>顶部搜索框，输入关键词即可实时过滤分类与程序</td></tr>
+  <tr><td><strong>下载进度</strong></td><td>点击下载后弹出进度窗口，实时显示下载速度和剩余大小，支持中途取消</td></tr>
+  <tr><td><strong>深色/亮色模式</strong></td><td>自动跟随系统主题，也可点击右上角按钮手动切换</td></tr>
+  <tr><td><strong>程序图标</strong></td><td>自动显示程序的图标，方便快速识别</td></tr>
+</table>
+
+<hr>
+
+
+
+<p style="font-size:12px; letter-spacing:0.32px; color:var(--cds-text-placeholder);">&copy; kinslot 2026 @Zhiyu_Chen</p>
+
+</div>
+
+<script>
+(function() {
+  const html = document.documentElement;
+  const STORAGE_KEY = "theme-preference";
+  const DARK = "dark", LIGHT = "light";
+
+  function getSystemTheme() {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+  }
+  function applyTheme(theme) {
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem(STORAGE_KEY, theme);
+  }
+  function initTheme() {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    applyTheme(stored === DARK || stored === LIGHT ? stored : getSystemTheme());
+  }
+  document.getElementById("themeToggle").addEventListener("click", function() {
+    applyTheme(html.getAttribute("data-theme") === DARK ? LIGHT : DARK);
+  });
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function(e) {
+    if (!localStorage.getItem(STORAGE_KEY)) applyTheme(e.matches ? DARK : LIGHT);
+  });
+  initTheme();
+})();
+</script>
+</body>
+</html>
